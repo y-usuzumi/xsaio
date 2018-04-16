@@ -1,0 +1,24 @@
+*.pyc
+*.pyo
+*.so
+*.class
+*~
+build/
+/dist/
+MANIFEST
+.tox/
+.vagrant
+/.coverage
+/htmlcov/
+/env/
+# Used in demo apps
+secrets.cfg
+.mypy_cache/
+__pycache__
+.idea/
+.vscode/
+.#*
+# For virtualenv support in fish shell
+.venv
+# For Emacs
+.dir-locals.el
