@@ -47,7 +47,7 @@ class _Timeout:
 class EventLoop:
     """事件循环
     """
-    def __init__(self, *, impl=None):
+    def __init__(self, *, impl):
         self._event_queue = queue.Queue()
         self._next_tick_event_queue = queue.Queue()
         self._time = None

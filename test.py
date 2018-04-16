@@ -1,6 +1,7 @@
 from datetime import datetime
 from threading import Thread
 import xsaio
+from xsaio.tcp_client import TCPClient
 
 
 def _l(s):
@@ -24,13 +25,15 @@ def control(loop):
         i += 1
 
     loop.set_interval(lyrics, 1000)
-    # loop.set_timeout(u_rock, 5000)
     print("world!")
+    c = TCPClient()
+    c.connect("127.0.0.1", 80)
 
 
 if __name__ == '__main__':
+    xsaio.config(debug=True)
     loop = xsaio.EPollEventLoop()
-    t = Thread(target=control, args=(loop, ))
+    t = Thread(target=control, args=(loop,))
     t.daemon = True
     t.start()
     loop.run()
