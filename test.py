@@ -4,7 +4,7 @@ import xsaio
 from xsaio.tcp_client import TCPClient
 
 
-def _l(s):
+def _p(s):
     print("[%s] %s" % (datetime.now(), s))
 
 
@@ -15,13 +15,13 @@ def control(loop):
     def lyrics():
         nonlocal i
         if i == 0:
-            _l("如果有一天")
+            _p("如果有一天")
         elif i == 1:
-            _l("我回到从前")
+            _p("我回到从前")
         elif i == 2:
-            _l("回到最原始的我")
+            _p("回到最原始的我")
         elif i == 3:
-            _l("你是否会觉得我不错")
+            _p("你是否会觉得我不错")
         i += 1
 
     loop.set_interval(lyrics, 1000)
