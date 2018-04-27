@@ -3,6 +3,7 @@ import time
 import queue
 import heapq
 import select
+from .promise import Promise
 from .log import def_log
 
 
@@ -84,7 +85,8 @@ class EventLoop:
             event = self._event_queue.get()
             event.handle()
 
-        self._impl.poll(timeout=1)
+        # FIXME: Broken
+        # self._impl.poll(timeout=1)
 
     def process_event(self, event):
         event.handle()
@@ -99,6 +101,9 @@ class EventLoop:
 
     def set_timeout(self, callback, delay):
         self._set_timeout(callback, delay, periodic=False)
+
+    def set_immediate(self, callback):
+        self.set_timeout(callback, 0)
 
     def set_interval(self, callback, interval):
         self._set_timeout(callback, interval, periodic=True)
@@ -116,6 +121,8 @@ class EventLoop:
         except Exception:
             def_log.debug("Error deleting fd from IOLoop", exc_info=True)
 
+    def promise(self, *args, **kwargs):
+        return Promise(*args, event_loop=self, **kwargs)
 
     def run(self):
         while True:

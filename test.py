@@ -29,6 +29,21 @@ def control(loop):
     c = TCPClient()
     c.connect("127.0.0.1", 80)
 
+    def _promise(on_resolved, on_rejected):
+        def _delayed_task():
+            _p("Print 2")
+            on_resolved("OK")
+            _p("Print 3")
+        _p("Print 1")
+        loop.set_timeout(_delayed_task, 2000)
+
+    def _on_resolved(result):
+        _p("Resolved with result: %s" % result)
+
+    def _on_rejected(reason):
+        _p("Rejected with reason: %s" % reason)
+    loop.promise(_promise).then(_on_resolved, _on_rejected)
+
 
 if __name__ == '__main__':
     xsaio.config(debug=True)
